@@ -1,12 +1,11 @@
-# Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 *.env
-*.idea/
+.idea/
 *.iml
 *.log
-
-# Pytest cache
 .pytest_cache/
+reports/allure/ui/
+reports/allure/api/

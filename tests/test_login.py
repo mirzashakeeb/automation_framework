@@ -1,10 +1,14 @@
-# tests/test_login.py
 import pytest
 from pages.login_page import LoginPage
+from utils.driver_factory import get_driver
+import allure
 
-def test_valid_login(setup):
-    driver = setup
-    driver.get("https://www.saucedemo.com/")
-    login = LoginPage(driver)
-    login.login("standard_user", "secret_sauce")
-    assert "inventory" in driver.current_url
+@allure.feature("Login")
+@allure.story("Valid Login")
+def test_login():
+    driver = get_driver()
+    login_page = LoginPage(driver)
+    login_page.go_to_login()
+    login_page.login("standard_user", "secret_sauce")
+    assert login_page.is_logged_in()
+    driver.quit()

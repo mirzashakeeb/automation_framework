@@ -7,26 +7,31 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  ui-tests:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - run: pip install -r requirements.txt
+      - uses: browser-actions/setup-chrome@v1
+      - run: pytest tests/test_login.py tests/test_cart.py --alluredir=reports/allure/ui --maxfail=1 --tb=short
+      - uses: actions/upload-artifact@v3
+        with:
+          name: allure-ui-report
+          path: reports/allure/ui
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
-
-    - name: Install dependencies
-      run: pip install -r requirements.txt
-
-    - name: Run tests
-      run: pytest --html=reports/report.html --self-contained-html
-
-    - name: Upload report
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-report
-        path: reports/report.html
+  api-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - run: pip install -r requirements.txt
+      - run: pytest tests/test_api_booking.py --alluredir=reports/allure/api --maxfail=1 --tb=short
+      - uses: actions/upload-artifact@v3
+        with:
+          name: allure-api-report
+          path: reports/allure/api
