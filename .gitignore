@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+*.idea/
+*.iml
+*.log
+
+# Pytest cache
+.pytest_cache/
