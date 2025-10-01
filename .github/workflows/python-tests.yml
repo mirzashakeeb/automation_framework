@@ -35,3 +35,14 @@ jobs:
         with:
           name: allure-api-report
           path: reports/allure/api
+- name: Upload UI Allure report
+  uses: actions/upload-artifact@v4
+  with:
+    name: allure-ui-report
+    path: reports/allure/ui
+
+- name: Upload API Allure report
+  uses: actions/upload-artifact@v4
+  with:
+    name: allure-api-report
+    path: reports/allure/api
