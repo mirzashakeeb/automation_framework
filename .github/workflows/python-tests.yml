@@ -25,8 +25,9 @@ jobs:
         uses: browser-actions/setup-chrome@v1
 
       - name: Run UI tests (headless)
-        run: pytest tests/test_login.py tests/test_cart.py \
-              --alluredir=reports/allure/ui --maxfail=1 --tb=short
+        run: |
+          mkdir -p reports/allure/ui
+          pytest tests/ --alluredir=reports/allure/ui --maxfail=1 --tb=short -k "test_login or test_cart"
 
       - name: Upload UI Allure report
         uses: actions/upload-artifact@v4
@@ -49,8 +50,9 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run API tests
-        run: pytest tests/test_api_booking.py \
-              --alluredir=reports/allure/api --maxfail=1 --tb=short
+        run: |
+          mkdir -p reports/allure/api
+          pytest tests/ --alluredir=reports/allure/api --maxfail=1 --tb=short -k "test_api"
 
       - name: Upload API Allure report
         uses: actions/upload-artifact@v4
