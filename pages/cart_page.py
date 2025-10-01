@@ -4,7 +4,7 @@ class CartPage:
     def __init__(self, driver):
         self.driver = driver
         # Locators
-        self.cart_button = (By.ID, "cart-button")  # Example: Cart icon/button
+        self.cart_button = (By.XPATH, "//a[@class='shopping_cart_link']")  # Example: Cart icon/button
         self.checkout_button = (By.ID, "checkout")  # Checkout button
         self.items_in_cart = (By.CSS_SELECTOR, ".cart_item")  # All cart items
         self.remove_buttons = (By.CSS_SELECTOR, ".cart_item button.remove")  # Remove buttons
